@@ -1,0 +1,60 @@
+"""Controller for App"""
+
+from Model import Model
+
+import xml.etree.ElementTree as ET
+import numpy as np
+
+class Controller:
+    model: Model
+
+    def __init__(self):
+        self.model = Model()
+    
+    def pauseVideo(self):
+        """Pause Current Video"""
+        self.model.pauseVideo()
+    
+    def playVideo(self):
+        """Play Current Video"""
+        self.model.playVideo()
+    
+    def changeVideo(self, path: str):
+        """Change Current Video"""
+        self.model.changeVideo(path)
+    
+    def nextView(self):
+        """Skip to next view in video"""
+        self.model.nextView()
+    
+    def nextPlay(self):
+        """Skip to next play in video"""
+        self.model.nextPlay()
+    
+    def prevView(self):
+        """Go back to previous view in video"""
+        self.model.prevView()
+    
+    def prevPlay(self):
+        """Go back to previous play in video"""
+        self.model.prevPlay()
+    
+    def fetch_metadata(self) -> ET.Element:
+        """Fetches current play metadata"""
+        return self.model.fetch_metadata()
+    
+    def fetch_current_frame(self) -> np.ndarray:
+        """Fetches current frame of video"""
+        return self.model.fetch_current_frame()
+    
+    def update_frame(self):
+        """Updates frame"""
+        self.model.update_frame()
+    
+    
+
+
+
+    
+    
+    
