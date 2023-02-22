@@ -2,6 +2,7 @@ import numpy as np
 import cv2 as cv
 import cvui
 from Controller import Controller
+import xml.etree.ElementTree as ET
 
 WINDOW_NAME = 'Film Viewer'
 cvui.init(WINDOW_NAME)
@@ -26,8 +27,12 @@ def main():
          controller.prevView()
       elif cvui.button(frame, 1365, 165, 100, 20, "Previous Play"):
          controller.prevPlay()
+      data = controller.fetch_metadata()
+      cvui.text(frame, 1365, 190, ET.tostring(data, encoding='unicode'))
+
       cvui.imshow(WINDOW_NAME, frame)
       controller.update_frame()
+
 
 
 
