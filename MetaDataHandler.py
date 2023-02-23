@@ -2,7 +2,6 @@
 
 import xml.etree.ElementTree as ET
 import pandas as pd
-from pydantic import BaseModel
 
 class parsed_metadata():
     play_number: int
