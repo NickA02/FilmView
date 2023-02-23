@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 import numpy as np
 
 from VideoHandler import VideoHandler
-from MetaDataHandler import MetadataHandler
+from MetaDataHandler import MetadataHandler, parsed_metadata
 
 class Model:
     videoModel: VideoHandler
@@ -25,6 +25,7 @@ class Model:
     def changeVideo(self, path: str):
         """Change Current Video"""
         self.videoModel.set_video(path)
+        self.metadataModel.set_metadata(path.removesuffix(".mp4"))
     
     def nextView(self):
         """Skip to next view in video"""
@@ -46,7 +47,7 @@ class Model:
         frame_number = self.metadataModel.prevPlay()
         self.videoModel.skip_to_frame(frame_number)
     
-    def fetch_metadata(self) -> ET:
+    def fetch_metadata(self) -> parsed_metadata:
         """Fetches current play metadata"""
         return self.metadataModel.getMetadata()
     
@@ -63,6 +64,9 @@ class Model:
         """Notify the observers of this model that a change has been made"""
         for o in self.observers:
             o.update(self)
+    
+    def check_metadata_change(self) -> bool:
+        return self.metadataModel.checkChanges()
     
 
 

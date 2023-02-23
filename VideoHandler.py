@@ -35,7 +35,7 @@ class VideoHandler:
                 return
             self.frame_number += 1
             self.currentFrame = frame
-        cv.waitKey(20)
+        cv.waitKey(10)
         return self.frame_number
 
             
@@ -45,10 +45,12 @@ class VideoHandler:
             print(self.video_player.get(cv.CAP_PROP_FRAME_COUNT))
             raise Exception("Error: Frame Index Out of Bounds")
         self.video_player.set(cv.CAP_PROP_POS_FRAMES, frame_number)
+        self.frame_number = frame_number
         if not self.isPlaying:
             self.isPlaying = True
             self.feed()
             self.isPlaying = False
+            return
         self.feed()
     
     def set_video(self, path: str):
@@ -59,6 +61,8 @@ class VideoHandler:
         self.video_player = cv.VideoCapture(path)
         if not self.video_player.isOpened():
             raise Exception("Error: Could not open video file")
+        self.skip_to_frame(0)
+        self.feed()
     
     def getCurrentFrame(self) -> np.ndarray:
         """Retrieves current frame"""
