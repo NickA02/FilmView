@@ -4,6 +4,7 @@ from Model import Model
 
 import xml.etree.ElementTree as ET
 import numpy as np
+from MetaDataHandler import parsed_metadata
 
 class Controller:
     model: Model
@@ -39,7 +40,7 @@ class Controller:
         """Go back to previous play in video"""
         self.model.prevPlay()
     
-    def fetch_metadata(self) -> ET.Element:
+    def fetch_metadata(self) -> parsed_metadata:
         """Fetches current play metadata"""
         return self.model.fetch_metadata()
     
@@ -51,6 +52,8 @@ class Controller:
         """Updates frame"""
         self.model.update_frame()
     
+    def check_metadata_change(self) -> bool:
+        return self.model.check_metadata_change()
     
 
 
