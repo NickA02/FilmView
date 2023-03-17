@@ -2,6 +2,7 @@
 
 import xml.etree.ElementTree as ET
 import pandas as pd
+import os
 
 class parsed_metadata():
     play_number: int
@@ -27,14 +28,15 @@ class MetadataHandler:
     
 
 
-    def __init__(self, path: str="film/Arizona Defense.xchange"):
-        if not path.endswith(".xchange"):
-            raise Exception("Error: Invalid Data Type for video")
-        self.full_game_tree = ET.parse(path)
+    def __init__(self, path: str="film/Arizona Offense"):
+        if not os.path.exists(f"{path}.xchange") or not os.path.exists(f"{path}.csv"):
+            raise Exception("Metadata does not exist")
+        self.full_game_tree = ET.parse(f"{path}.xchange")
         self.plays_tree = self.full_game_tree.find("Plays")
         self.plays_list = self.plays_tree.findall("Play")
         self.play_views = self.plays_list[self.current_play].find("Views").findall("View")
-        self.pff_data = pd.read_csv("film/Arizona Defense.csv")
+
+        self.pff_data = pd.read_csv(f"{path}.csv")
     
     def nextPlay(self) -> int:
         self.current_play += 1

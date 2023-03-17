@@ -2,12 +2,13 @@ from Controller import Controller
 import numpy as np
 import cv2 as cv
 from MetaDataHandler import parsed_metadata
+import os
 
-video_name_base = "split_clips/CardsDEF"
+video_name_base = "split_clips/ARI_OFF_vs_ATL_DEF"
 
 class VideoThread():
     def __init__(self):
-        self.controller = Controller()
+        self.controller = Controller("film/Arizona Offense")
         self._run_flag = True
         self._stop_flag = False
         self.height, self.width, layers = self.controller.fetch_current_frame().shape
@@ -35,9 +36,12 @@ class VideoThread():
         if self.metadata.current_view == "SB":
             self.controller.nextView()
             self.metadata = self.controller.fetch_metadata()
+        elif self.metadata.current_view == "EZ":
+            self.controller.update_frame()
+            self.controller.update_frame()
         self.video = cv.VideoWriter(
             f"{video_name_base}_{self.metadata.play_number}_{self.metadata.current_view}.mp4",
-            cv.VideoWriter_fourcc(*'MP4V'),
+            cv.VideoWriter_fourcc(*'mp4v'),
             60, 
             (self.width, self.height)
             )

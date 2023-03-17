@@ -32,6 +32,7 @@ class VideoThread(QThread):
         self._run_flag = True
         while self._run_flag:
             self.controller.update_frame()
+            cv.waitKey(10)
             self.controller.fetch_metadata()
             self.change_pixmap_signal.emit(controller.fetch_current_frame())
             if self.controller.check_metadata_change():
@@ -205,7 +206,7 @@ class MyWidget(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    controller = Controller()
+    controller = Controller("film/Arizona Defense")
     widget = MyWidget(controller)
     widget.show()
 

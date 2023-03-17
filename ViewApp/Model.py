@@ -10,9 +10,9 @@ class Model:
     metadataModel: MetadataHandler
     observers: list = []
 
-    def __init__(self):
-        self.videoModel = VideoHandler()
-        self.metadataModel = MetadataHandler()
+    def __init__(self, path: str):
+        self.videoModel = VideoHandler(videoPath=path)
+        self.metadataModel = MetadataHandler(path=path)
     
     def pauseVideo(self):
         """Pause Current Video"""

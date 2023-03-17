@@ -1,6 +1,7 @@
 """VideoHandler Module"""
 import cv2 as cv
 import numpy as np
+import os
 
 
 class VideoHandler:
@@ -10,10 +11,10 @@ class VideoHandler:
     isPlaying: bool = True
 
 
-    def __init__(self, videoPath: str = "film/Arizona Defense.mp4"):
-        if not videoPath.endswith(".mp4"):
-            raise Exception("Error: Invalid Data Type for video")
-        self.video_player = cv.VideoCapture(videoPath)
+    def __init__(self, videoPath: str = "film/Arizona Offense"):
+        if not os.path.exists(f"{videoPath}.mp4"):
+            raise Exception(f"Video path {videoPath}.mp4 not found")
+        self.video_player = cv.VideoCapture(f"{videoPath}.mp4")
         if not self.video_player.isOpened():
             raise Exception("Error: Could not open video file")
         self.feed()
@@ -35,7 +36,6 @@ class VideoHandler:
                 return
             self.frame_number += 1
             self.currentFrame = frame
-        cv.waitKey(10)
         return self.frame_number
 
             
@@ -66,7 +66,11 @@ class VideoHandler:
     
     def getCurrentFrame(self) -> np.ndarray:
         """Retrieves current frame"""
-        return self.currentFrame
+        cf = self.currentFrame
+        cf = cv.cvtColor(cf, cv.COLOR_BGR2GRAY)
+        cf = cv.GaussianBlur(self.currentFrame, (3, 3), 0, 0, cv.BORDER_DEFAULT)
+        cf = cv.Sobel(cf, -1, 1, 1)
+        return cf
 
 
 

@@ -9,8 +9,8 @@ from MetaDataHandler import parsed_metadata
 class Controller:
     model: Model
 
-    def __init__(self):
-        self.model = Model()
+    def __init__(self, path: str):
+        self.model = Model(path)
     
     def pauseVideo(self):
         """Pause Current Video"""
