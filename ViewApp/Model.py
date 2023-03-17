@@ -68,6 +68,9 @@ class Model:
     def check_metadata_change(self) -> bool:
         return self.metadataModel.checkChanges()
     
+    def get_num_plays(self) -> int:
+        return self.metadataModel.get_num_plays()
+    
 
 
 

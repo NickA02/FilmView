@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/nas/longleaf/home/nalmy/FilmView/ViewApp/ParseVideo.py", line 75, in <module>
+    vt = VideoThread("nas/longleaf/home/nalmy/FilmView/split_clips/Arizona Special Teams")
+  File "/nas/longleaf/home/nalmy/FilmView/ViewApp/ParseVideo.py", line 14, in __init__
+    self.controller = Controller(path)
+  File "/nas/longleaf/home/nalmy/FilmView/ViewApp/Controller.py", line 13, in __init__
+    self.model = Model(path)
+  File "/nas/longleaf/home/nalmy/FilmView/ViewApp/Model.py", line 14, in __init__
+    self.videoModel = VideoHandler(videoPath=path)
+  File "/nas/longleaf/home/nalmy/FilmView/ViewApp/VideoHandler.py", line 16, in __init__
+    raise Exception(f"Video path {videoPath}.mp4 not found")
+Exception: Video path nas/longleaf/home/nalmy/FilmView/split_clips/Arizona Special Teams.mp4 not found

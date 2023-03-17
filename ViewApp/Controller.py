@@ -11,6 +11,8 @@ class Controller:
 
     def __init__(self, path: str):
         self.model = Model(path)
+
+    
     
     def pauseVideo(self):
         """Pause Current Video"""
@@ -53,8 +55,12 @@ class Controller:
         self.model.update_frame()
     
     def check_metadata_change(self) -> bool:
+        """Check if the metadata of the current frame is different than when previously checked"""
         return self.model.check_metadata_change()
     
+    def get_num_plays(self) -> int:
+        """Return the number of plays included in the metadata"""
+        return self.model.get_num_plays()
 
 
 

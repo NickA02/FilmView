@@ -8,6 +8,7 @@ class parsed_metadata():
     play_number: int
     current_view: str
     pff_data: pd.DataFrame
+    num_plays: int
 
 
     def __init__(self, play_number: int, current_view: str, pff_data: pd.DataFrame):
@@ -100,4 +101,8 @@ class MetadataHandler:
         self.play_views = self.plays_list[self.current_play].find("Views").findall("View")
         self.pff_data = pd.read_csv(path + ".csv")
         self.changes = True
+    
+    def get_num_plays(self) -> int:
+        """Return number of plays in the video"""
+        return self.pff_data.shape[0]
         
