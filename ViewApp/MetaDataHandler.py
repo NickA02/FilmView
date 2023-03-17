@@ -36,7 +36,6 @@ class MetadataHandler:
         self.plays_tree = self.full_game_tree.find("Plays")
         self.plays_list = self.plays_tree.findall("Play")
         self.play_views = self.plays_list[self.current_play].find("Views").findall("View")
-
         self.pff_data = pd.read_csv(f"{path}.csv")
     
     def nextPlay(self) -> int:
