@@ -83,6 +83,11 @@ class MyWidget(QWidget):
         self.changeViewButton.clicked.connect(self.changeFile)
         self.buttonLayout.addWidget(self.changeViewButton,3,0,1,2)
 
+        self._transform_flag: bool = False
+        self.toggleFilterButton = QPushButton("Apply filters")
+        self.toggleFilterButton.clicked.connect(self.toggleTransform)
+        self.buttonLayout.addWidget(self.toggleFilterButton,4,0,1,2)
+
         self.prevPlayButton = QPushButton("Previous Play")  
 
         self.prevPlayButton.clicked.connect(self.prevPlay)
@@ -118,6 +123,9 @@ class MyWidget(QWidget):
         self.thread.stop()
         event.accept()
     
+    def toggleTransform(self):
+        self._transform_flag = not self._transform_flag
+
     def play(self):
         self.thread.pause()
         self.controller.playVideo()
@@ -172,8 +180,11 @@ class MyWidget(QWidget):
     @Slot(np.ndarray)
     def update_image(self, cv_img):
         """Updates the image_label with a new opencv image"""
+        if self._transform_flag:
+            cv_img = self.transform(cv_img)
         qt_img = self.convert_cv_qt(cv_img)
         self.image_label.setPixmap(qt_img)
+    
     
     @Slot(parsed_metadata)
     def update_metadata(self, data: parsed_metadata):
@@ -185,6 +196,12 @@ class MyWidget(QWidget):
         #print(data_string)
         self.dataLabel.setText(data_string)
 
+    def transform(self, cf: np.array):
+        cf = cv.cvtColor(cf, cv.COLOR_BGR2GRAY)
+        cf = cv.GaussianBlur(cf, (5, 5), 0, 0, cv.BORDER_DEFAULT)
+        cf = cv.Sobel(cf, -1, 0, 1)
+        cf = cv.Sobel(cf, -1, 1, 0)
+        return cf
 
     
     def convert_cv_qt(self, cv_img):

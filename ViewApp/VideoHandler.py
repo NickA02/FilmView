@@ -67,10 +67,10 @@ class VideoHandler:
     def getCurrentFrame(self) -> np.ndarray:
         """Retrieves current frame"""
         cf = self.currentFrame
-        cf = cv.cvtColor(cf, cv.COLOR_BGR2GRAY)
-        cf = cv.GaussianBlur(cf, (5, 5), 0, 0, cv.BORDER_DEFAULT)
-        cf = cv.Sobel(cf, -1, 0, 1)
-        cf = cv.Sobel(cf, -1, 1, 0)
+        #cf = cv.cvtColor(cf, cv.COLOR_BGR2GRAY)
+        #cf = cv.GaussianBlur(cf, (5, 5), 0, 0, cv.BORDER_DEFAULT)
+        #cf = cv.Sobel(cf, -1, 0, 1)
+        #cf = cv.Sobel(cf, -1, 1, 0)
         return cf
 
 
