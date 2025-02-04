@@ -2,3 +2,4 @@ film/
 split_clips/
 *.sh
 *.o
+*.out
